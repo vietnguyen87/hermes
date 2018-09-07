@@ -388,8 +388,13 @@ func (dt *Default) HTMLTemplate() string {
                       {{ end }}
 
                     <p>
-                      {{.Email.Body.Signature}},
-                      <br />
+						{{ with .Email.Body.Signature }} 
+                        {{ if gt (len .) 0 }}
+                          {{ range $line := . }}
+                            {{ $line }}<br />
+                          {{ end }}
+                        {{ end }}
+                      {{ end }}
                       {{.Hermes.Product.Name}}
                     </p>
 
